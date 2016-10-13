@@ -24,6 +24,12 @@
     <ClCompile Include="MyWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Geometry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameWindow.h">
@@ -32,12 +38,24 @@
     <ClInclude Include="MyWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertexShader.glsl">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="fragmentShader.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="NormalColorVS.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="NormalColorFS.glsl">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

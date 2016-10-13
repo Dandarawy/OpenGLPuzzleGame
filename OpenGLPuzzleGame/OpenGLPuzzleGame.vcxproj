@@ -126,15 +126,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameWindow.cpp" />
+    <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MyWindow.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameWindow.h" />
+    <ClInclude Include="Geometry.h" />
     <ClInclude Include="MyWindow.h" />
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fragmentShader.glsl" />
+    <None Include="NormalColorFS.glsl" />
+    <None Include="NormalColorVS.glsl" />
     <None Include="vertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

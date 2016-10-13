@@ -22,42 +22,58 @@ void MyWindow::Update(sf::Time dt)
 		std::cout << "FPS: " << fps << std::endl;
 		fps = 0;
 	}
+
+	elapsedTime += dt.asSeconds();
+	float x = 8 * sin(elapsedTime);
+	float z = 8 * cos(elapsedTime);
+
+	view_mat = glm::lookAt(glm::vec3(x, 8.0f, z), glm::vec3(), glm::vec3(0, 1, 0));
+	proj_mat = glm::perspective(45.0f, width*1.0f / height, 0.1f, 100.0f);
 }
 
 
 void MyWindow::Render(sf::Time dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	sf::Shader::bind(&normalColorShader);
+	glm::mat4 model_mat = glm::translate(1.0f, 0.0f, 1.0f);
+	GLuint mvp = glGetUniformLocation(normalColorShader.getNativeHandle(), "mvp_mat");
+	glUniformMatrix4fv(mvp, 1, GL_FALSE, glm::value_ptr(proj_mat*view_mat*model_mat));
+	GLuint model_mat_location =glGetUniformLocation(normalColorShader.getNativeHandle(), "model_mat");
+	glUniformMatrix4fv(model_mat_location, 1, GL_FALSE, glm::value_ptr(model_mat));
+	GLuint view_mat_location = glGetUniformLocation(normalColorShader.getNativeHandle(), "view_mat");
+	glUniformMatrix4fv(view_mat_location, 1, GL_FALSE, glm::value_ptr(view_mat));
+	GLuint proj_mat_location = glGetUniformLocation(normalColorShader.getNativeHandle(), "proj_mat");
+	glUniformMatrix4fv(proj_mat_location, 1, GL_FALSE, glm::value_ptr(proj_mat));
+	cubeGeometry->Bind();
+	glDrawElements(GL_TRIANGLES, cubeGeometry->GetIndicesCount(), GL_UNSIGNED_INT, NULL);
 
-	glDrawArrays(GL_TRIANGLES,0,6);
+	model_mat = glm::translate(-1.0f, 0.0f, 1.0f);
+	mvp = glGetUniformLocation(normalColorShader.getNativeHandle(), "mvp_mat");
+	glUniformMatrix4fv(mvp, 1, GL_FALSE, glm::value_ptr(proj_mat*view_mat*model_mat));
+	model_mat_location = glGetUniformLocation(normalColorShader.getNativeHandle(), "model_mat");
+	glUniformMatrix4fv(model_mat_location, 1, GL_FALSE, glm::value_ptr(model_mat));
+	glDrawElements(GL_TRIANGLES, cubeGeometry->GetIndicesCount(), GL_UNSIGNED_INT, NULL);
+
+	model_mat = glm::translate(-1.0f, 0.0f, -1.0f);
+	mvp = glGetUniformLocation(normalColorShader.getNativeHandle(), "mvp_mat");
+	glUniformMatrix4fv(mvp, 1, GL_FALSE, glm::value_ptr(proj_mat*view_mat*model_mat));
+	model_mat_location = glGetUniformLocation(normalColorShader.getNativeHandle(), "model_mat");
+	glUniformMatrix4fv(model_mat_location, 1, GL_FALSE, glm::value_ptr(model_mat));
+	glDrawElements(GL_TRIANGLES, cubeGeometry->GetIndicesCount(), GL_UNSIGNED_INT, NULL);
+
+	model_mat = glm::translate(1.0f, 0.0f, -1.0f);
+	mvp = glGetUniformLocation(normalColorShader.getNativeHandle(), "mvp_mat");
+	glUniformMatrix4fv(mvp, 1, GL_FALSE, glm::value_ptr(proj_mat*view_mat*model_mat));
+	model_mat_location = glGetUniformLocation(normalColorShader.getNativeHandle(), "model_mat");
+	glUniformMatrix4fv(model_mat_location, 1, GL_FALSE, glm::value_ptr(model_mat));
+	glDrawElements(GL_TRIANGLES, cubeGeometry->GetIndicesCount(), GL_UNSIGNED_INT, NULL);
 }
 
 void MyWindow::Start()
 {
-
 	glClearColor(.192f, 0.302f, 0.475f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
-	
-	sf::Shader shader;
-	shader.loadFromFile("vertexShader.glsl", "fragmentShader.glsl");
-	sf::Shader::bind(&shader);
-
-	GLuint vao, vbo;
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	float vertices[18] = {
-		-1,1,0,
-		-1,-1,0,
-		1,-1,0,
-
-		-1,1,0,
-		1,-1,0,
-		1,1,0
-	};
-	GLuint vertexPositionLoc = glGetAttribLocation(shader.getNativeHandle(), "vertex_position");
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	glVertexAttribPointer(vertexPositionLoc, 3, GL_FLOAT, true, 3 * sizeof(float), 0);
-	glEnableVertexAttribArray(vertexPositionLoc);
+	normalColorShader.loadFromFile("NormalColorVS.glsl", "NormalColorFS.glsl");
+	cubeGeometry = Geometry::Create_cube();
 }
