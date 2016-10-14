@@ -30,6 +30,12 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UnlitTextureMaterial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameWindow.h">
@@ -44,6 +50,12 @@
     <ClInclude Include="Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UnlitTextureMaterial.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertexShader.glsl">
@@ -56,6 +68,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="NormalColorFS.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="UnlitTextureFS.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="UnlitTextureVS.glsl">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
