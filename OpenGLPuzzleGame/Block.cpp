@@ -1,9 +1,9 @@
 #include "Block.h"
-
+#include <iostream>
 
 glm::vec3 Block::Tween()
 {
-	if (elapsedTime == duration)
+	if (elapsedTime >= duration)
 		return targetPosition;
 	//linear
 	//return from + (to - from)*(t/duration);

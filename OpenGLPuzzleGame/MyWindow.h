@@ -22,9 +22,25 @@ public:
 	void Start() override;
 	std::shared_ptr<sf::Texture> loadTexture(std::string imageFileName);
 private:
+	int map[8][8] = {
+		{ 0,0,0,0,1,0,0,1 },
+		{ 0,2,0,0,0,0,0,0 },
+		{ 0,0,0,0,0,0,1,0 },
+		{ 1,0,0,0,0,0,0,0 },
+		{ 0,0,0,0,0,0,0,0 },
+		{ 0,0,0,1,0,0,0,1 },
+		{ 0,0,0,0,0,0,0,0 },
+		{ 1,0,0,0,0,0,0,0 }
+	};
 	float elapsedTime = 0;
 	Camera cam;
-	std::vector<Block> cubes;
+	std::vector<Block> mapBlocks;
+	std::shared_ptr<Block> player;
 	std::shared_ptr<Mesh> skybox;
+	std::shared_ptr<Geometry> cubeGeometry;
+	std::shared_ptr<UnlitTextureMaterial> blockMat;
+	std::shared_ptr<UnlitTextureMaterial> mapMat;
+	std::shared_ptr<UnlitTextureMaterial> targetMat;
+	void LoadMap();
 };
 

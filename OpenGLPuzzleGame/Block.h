@@ -14,6 +14,7 @@ enum BlockState
 };
 class Block
 {
+private:
 	Mesh mesh;
 	float elapsedTime = 0;
 	glm::vec3 startPosition;

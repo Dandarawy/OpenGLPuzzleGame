@@ -2,7 +2,7 @@
 
 
 MyWindow::MyWindow() :GameWindow("OpenGL Puzzle Game", 800, 600),
-cam(glm::vec3(8, 8, 0),glm::vec3(),800.0f/600)
+cam(glm::vec3(-4, 10, -4),glm::vec3(3,0,3),800.0f/600)
 {
 }
 
@@ -23,13 +23,16 @@ void MyWindow::Update(sf::Time dt)
 		std::cout << "FPS: " << fps << std::endl;
 		fps = 0;
 	}
-
 	elapsedTime += dt.asSeconds();
-	float x = 8 * sin(elapsedTime);
-	float z = 8 * cos(elapsedTime);
-	cam.SetPosition(glm::vec3(x, 8, z));
 
 	skybox->transform.SetPosition(cam.GetPosition());
+	skybox->transform.SetEulerAngles(glm::vec3(0, elapsedTime, 0));
+
+	player->Update(dt);
+	for (auto& block : mapBlocks)
+	{
+		block.Update(dt);
+	}
 }
 
 
@@ -40,10 +43,12 @@ void MyWindow::Render(sf::Time dt)
 	skybox->Render(cam.GetView(), cam.GetProj());
 	glClear(GL_DEPTH_BUFFER_BIT);
 
-	for (auto cube : cubes)
+	for (auto block : mapBlocks)
 	{
-		cube.Render(cam);
+		block.Render(cam);
 	}
+
+	player->Render(cam);
 }
 
 void MyWindow::Start()
@@ -52,26 +57,31 @@ void MyWindow::Start()
 	glEnable(GL_DEPTH_TEST);
 	std::shared_ptr<sf::Shader> unlitTextureShader = std::make_shared<sf::Shader>();
 	unlitTextureShader->loadFromFile("UnlitTextureVS.glsl", "UnlitTextureFS.glsl");
-	std::shared_ptr<Geometry> cubeGeometry = Geometry::Create_cube();
-
-	std::shared_ptr<sf::Texture> texture1 = loadTexture("images\\block.png");
-	std::shared_ptr<UnlitTextureMaterial> material1 = std::make_shared<UnlitTextureMaterial>(unlitTextureShader);
-	material1->AddTexture("color_map", texture1);
+	cubeGeometry = Geometry::Create_cube();
 
 
-	std::shared_ptr<sf::Texture> texture2 = loadTexture("images\\target.png");
-	std::shared_ptr<UnlitTextureMaterial> material2 = std::make_shared<UnlitTextureMaterial>(unlitTextureShader);
-	material2->AddTexture("color_map", texture2);
+	std::shared_ptr<sf::Texture> blockTexture = loadTexture("images\\block.png");
+	blockMat = std::make_shared<UnlitTextureMaterial>(unlitTextureShader);
+	blockMat->AddTexture("color_map", blockTexture);
+	blockMat->setTint(glm::vec3(0.5, 0.5, 0.5));
 
-	cubes.push_back(Block(cubeGeometry, material1));
-	cubes.push_back(Block(cubeGeometry, material1));
-	cubes.push_back(Block(cubeGeometry, material2));
-	cubes.push_back(Block(cubeGeometry, material2));
+	mapMat = std::make_shared<UnlitTextureMaterial>(unlitTextureShader);
+	mapMat->AddTexture("color_map", blockTexture);
 
-	cubes[0].SetPosition(glm::vec3(1, 0, 1));
-	cubes[1].SetPosition(glm::vec3(1, 0, -1));
-	cubes[2].SetPosition(glm::vec3(-1, 0, 1));
-	cubes[3].SetPosition(glm::vec3(-1, 0, -1));
+
+	std::shared_ptr<sf::Texture> targetTexture = loadTexture("images\\target.png");
+	targetMat = std::make_shared<UnlitTextureMaterial>(unlitTextureShader);
+	targetMat->AddTexture("color_map", targetTexture);
+
+	//player block
+	std::shared_ptr<sf::Texture> playerTexture = loadTexture("images\\player.png");
+	std::shared_ptr<UnlitTextureMaterial> playerMat = std::make_shared<UnlitTextureMaterial>(unlitTextureShader);
+	playerMat->AddTexture("color_map", playerTexture);
+	player = std::make_shared<Block>(cubeGeometry, playerMat);
+
+	//Map Loading
+	LoadMap();
+
 
 	//creating skybox
 	std::shared_ptr<sf::Shader> cubeMapShader = std::make_shared<sf::Shader>();
@@ -102,4 +112,33 @@ std::shared_ptr<sf::Texture> MyWindow::loadTexture(std::string imageFileName)
 	texture->setSmooth(true);
 	texture->generateMipmap();
 	return texture;
+}
+
+void MyWindow::LoadMap()
+{
+	mapBlocks.clear();
+	for (int x = 0;x < 8;x++)
+	{
+		for (int z = 0;z < 8;z++)
+		{
+			if (map[x][z] == 2)
+			{
+				Block block(cubeGeometry, targetMat, glm::vec3(x, 0, z));
+				mapBlocks.push_back(block);
+			}
+			else
+			{
+				Block block(cubeGeometry, mapMat, glm::vec3(x, 0, z));
+				mapBlocks.push_back(block);
+			}
+
+			if (map[x][z] == 1)
+			{
+				Block block(cubeGeometry, blockMat, glm::vec3(x, 0.5, z));
+				block.MoveTo(glm::vec3(x, 1.0f, z), 0.5f);
+				mapBlocks.push_back(block);
+			}
+		}
+	}
+	player->MoveTo(glm::vec3(0, 1.0f, 0), 0.5f);
 }
