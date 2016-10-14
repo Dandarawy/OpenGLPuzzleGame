@@ -10,6 +10,7 @@
 #include "Mesh.h"
 #include "Camera.h"
 #include "CubeMappingMaterial.h"
+#include "Block.h"
 class MyWindow :
 	public GameWindow
 {
@@ -23,7 +24,7 @@ public:
 private:
 	float elapsedTime = 0;
 	Camera cam;
-	std::vector<Mesh> cubes;
+	std::vector<Block> cubes;
 	std::shared_ptr<Mesh> skybox;
 };
 

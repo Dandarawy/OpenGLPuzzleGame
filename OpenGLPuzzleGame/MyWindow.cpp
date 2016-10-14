@@ -42,7 +42,7 @@ void MyWindow::Render(sf::Time dt)
 
 	for (auto cube : cubes)
 	{
-		cube.Render(cam.GetView(), cam.GetProj());
+		cube.Render(cam);
 	}
 }
 
@@ -63,15 +63,15 @@ void MyWindow::Start()
 	std::shared_ptr<UnlitTextureMaterial> material2 = std::make_shared<UnlitTextureMaterial>(unlitTextureShader);
 	material2->AddTexture("color_map", texture2);
 
-	cubes.push_back(Mesh(cubeGeometry, material1));
-	cubes.push_back(Mesh(cubeGeometry, material1));
-	cubes.push_back(Mesh(cubeGeometry, material2));
-	cubes.push_back(Mesh(cubeGeometry, material2));
+	cubes.push_back(Block(cubeGeometry, material1));
+	cubes.push_back(Block(cubeGeometry, material1));
+	cubes.push_back(Block(cubeGeometry, material2));
+	cubes.push_back(Block(cubeGeometry, material2));
 
-	cubes[0].transform.SetPosition(glm::vec3(1, 0, 1));
-	cubes[1].transform.SetPosition(glm::vec3(1, 0, -1));
-	cubes[2].transform.SetPosition(glm::vec3(-1, 0, 1));
-	cubes[3].transform.SetPosition(glm::vec3(-1, 0, -1));
+	cubes[0].SetPosition(glm::vec3(1, 0, 1));
+	cubes[1].SetPosition(glm::vec3(1, 0, -1));
+	cubes[2].SetPosition(glm::vec3(-1, 0, 1));
+	cubes[3].SetPosition(glm::vec3(-1, 0, -1));
 
 	//creating skybox
 	std::shared_ptr<sf::Shader> cubeMapShader = std::make_shared<sf::Shader>();
