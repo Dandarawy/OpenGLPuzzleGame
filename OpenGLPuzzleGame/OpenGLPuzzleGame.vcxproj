@@ -127,6 +127,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CubeMap.cpp" />
+    <ClCompile Include="CubeMappingMaterial.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -139,6 +140,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CubeMap.h" />
+    <ClInclude Include="CubeMappingMaterial.h" />
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Material.h" />
@@ -148,6 +150,8 @@
     <ClInclude Include="UnlitTextureMaterial.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CubeMappingFS.glsl" />
+    <None Include="CubeMappingVS.glsl" />
     <None Include="fragmentShader.glsl" />
     <None Include="NormalColorFS.glsl" />
     <None Include="NormalColorVS.glsl" />

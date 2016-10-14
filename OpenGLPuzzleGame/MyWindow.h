@@ -9,6 +9,7 @@
 #include "UnlitTextureMaterial.h"
 #include "Mesh.h"
 #include "Camera.h"
+#include "CubeMappingMaterial.h"
 class MyWindow :
 	public GameWindow
 {
@@ -23,5 +24,6 @@ private:
 	float elapsedTime = 0;
 	Camera cam;
 	std::vector<Mesh> cubes;
+	std::shared_ptr<Mesh> skybox;
 };
 

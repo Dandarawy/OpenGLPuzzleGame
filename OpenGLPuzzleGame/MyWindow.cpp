@@ -28,12 +28,17 @@ void MyWindow::Update(sf::Time dt)
 	float x = 8 * sin(elapsedTime);
 	float z = 8 * cos(elapsedTime);
 	cam.SetPosition(glm::vec3(x, 8, z));
+
+	skybox->transform.SetPosition(cam.GetPosition());
 }
 
 
 void MyWindow::Render(sf::Time dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	skybox->Render(cam.GetView(), cam.GetProj());
+	glClear(GL_DEPTH_BUFFER_BIT);
 
 	for (auto cube : cubes)
 	{
@@ -67,6 +72,22 @@ void MyWindow::Start()
 	cubes[1].transform.SetPosition(glm::vec3(1, 0, -1));
 	cubes[2].transform.SetPosition(glm::vec3(-1, 0, 1));
 	cubes[3].transform.SetPosition(glm::vec3(-1, 0, -1));
+
+	//creating skybox
+	std::shared_ptr<sf::Shader> cubeMapShader = std::make_shared<sf::Shader>();
+	cubeMapShader->loadFromFile("CubeMappingVS.glsl", "CubeMappingFS.glsl");;
+
+	std::string cubMapImages[6] = {
+		"images\\skybox\\0002.jpg",
+		"images\\skybox\\0004.jpg",
+		"images\\skybox\\0006.jpg",
+		"images\\skybox\\0001.jpg",
+		"images\\skybox\\0003.jpg",
+		"images\\skybox\\0005.jpg"
+	};
+	std::shared_ptr<CubeMap> cubemap = CubeMap::Create(cubMapImages);
+	std::shared_ptr<CubeMappingMaterial> skyboxMat = std::make_shared<CubeMappingMaterial>(cubeMapShader, cubemap);
+	skybox = std::make_shared<Mesh>(cubeGeometry, skyboxMat);
 
 }
 
