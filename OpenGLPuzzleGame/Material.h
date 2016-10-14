@@ -17,16 +17,16 @@ private:
 public:
 	Material(std::shared_ptr<sf::Shader> shader);
 	~Material();
-	virtual void bind();
-	GLuint get_uniform_loc(std::string uniform)
+	virtual void Bind();
+	GLuint GetUniformLoc(std::string uniform)
 	{
 		return glGetUniformLocation(shader->getNativeHandle(), uniform.c_str());
 	}
-	GLuint get_attr_loc(std::string Attrib)
+	GLuint GetAttribLoc(std::string attrib)
 	{
-		return glGetAttribLocation(shader->getNativeHandle(), Attrib.c_str());
+		return glGetAttribLocation(shader->getNativeHandle(), attrib.c_str());
 	}
-	void add_texture(std::string tex_uniform_name, std::shared_ptr< sf::Texture> _texture)
+	void AddTexture(std::string tex_uniform_name, std::shared_ptr< sf::Texture> _texture)
 	{
 		//if the tex_uniform_name exists it will be overwrite otherwise it will be added
 		textures[tex_uniform_name] = _texture;

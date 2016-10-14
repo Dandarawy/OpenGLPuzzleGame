@@ -8,7 +8,7 @@ class UnlitTextureMaterial :
 	glm::vec3 tint;
 public:
 	UnlitTextureMaterial(std::shared_ptr<sf::Shader> shader);
-	void bind() override;
+	void Bind() override;
 	~UnlitTextureMaterial();
 	void setOffset(glm::vec2 offset) { this->offset = offset; }
 	void setTilling(glm::vec2 tilling) { this->tilling = tilling; }

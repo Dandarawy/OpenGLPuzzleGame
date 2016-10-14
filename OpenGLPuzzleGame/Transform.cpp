@@ -1,6 +1,6 @@
 #include "Transform.h"
 
-void Transform::update_model_mat()
+void Transform::UpdateModelMat()
 {
 	glm::mat4 scale_mat = glm::scale(scale);
 	glm::mat4 translate_mat = glm::translate(position);

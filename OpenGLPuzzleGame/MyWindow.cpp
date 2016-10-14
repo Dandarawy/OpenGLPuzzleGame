@@ -51,22 +51,22 @@ void MyWindow::Start()
 
 	std::shared_ptr<sf::Texture> texture1 = loadTexture("images\\block.png");
 	std::shared_ptr<UnlitTextureMaterial> material1 = std::make_shared<UnlitTextureMaterial>(unlitTextureShader);
-	material1->add_texture("color_map", texture1);
+	material1->AddTexture("color_map", texture1);
 
 
 	std::shared_ptr<sf::Texture> texture2 = loadTexture("images\\target.png");
 	std::shared_ptr<UnlitTextureMaterial> material2 = std::make_shared<UnlitTextureMaterial>(unlitTextureShader);
-	material2->add_texture("color_map", texture2);
+	material2->AddTexture("color_map", texture2);
 
 	cubes.push_back(Mesh(cubeGeometry, material1));
 	cubes.push_back(Mesh(cubeGeometry, material1));
 	cubes.push_back(Mesh(cubeGeometry, material2));
 	cubes.push_back(Mesh(cubeGeometry, material2));
 
-	cubes[0].transform.set_position(glm::vec3(1, 0, 1));
-	cubes[1].transform.set_position(glm::vec3(1, 0, -1));
-	cubes[2].transform.set_position(glm::vec3(-1, 0, 1));
-	cubes[3].transform.set_position(glm::vec3(-1, 0, -1));
+	cubes[0].transform.SetPosition(glm::vec3(1, 0, 1));
+	cubes[1].transform.SetPosition(glm::vec3(1, 0, -1));
+	cubes[2].transform.SetPosition(glm::vec3(-1, 0, 1));
+	cubes[3].transform.SetPosition(glm::vec3(-1, 0, -1));
 
 }
 

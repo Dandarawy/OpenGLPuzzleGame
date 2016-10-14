@@ -8,14 +8,14 @@ UnlitTextureMaterial::UnlitTextureMaterial(std::shared_ptr<sf::Shader> shader)
 {
 }
 
-void UnlitTextureMaterial::bind()
+void UnlitTextureMaterial::Bind()
 {
-	Material::bind();
-	GLuint offsetLoc = get_uniform_loc("offset");
+	Material::Bind();
+	GLuint offsetLoc = GetUniformLoc("offset");
 	glUniform2fv(offsetLoc, 1, glm::value_ptr(offset));
-	GLuint tillingLoc = get_uniform_loc("tilling");
+	GLuint tillingLoc = GetUniformLoc("tilling");
 	glUniform2fv(tillingLoc, 1, glm::value_ptr(tilling));
-	GLuint tintLoc = get_uniform_loc("tint");
+	GLuint tintLoc = GetUniformLoc("tint");
 	glUniform3fv(tintLoc, 1, glm::value_ptr(tint));
 }
 

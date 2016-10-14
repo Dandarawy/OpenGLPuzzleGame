@@ -10,7 +10,7 @@ Material::Material(std::shared_ptr<sf::Shader> shader) :
 Material::~Material()
 {
 }
-void Material::bind()
+void Material::Bind()
 {
 	if (active != this)
 	{
