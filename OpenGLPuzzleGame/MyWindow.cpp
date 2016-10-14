@@ -28,6 +28,78 @@ void MyWindow::Update(sf::Time dt)
 	skybox->transform.SetPosition(cam.GetPosition());
 	skybox->transform.SetEulerAngles(glm::vec3(0, elapsedTime, 0));
 
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+	{
+		LoadMap();
+	}
+	if (player->GetState() == BlockState::Sationary)
+	{
+
+		int row = round(player->GetPosition().x);
+		int col = round(player->GetPosition().z);
+		if (map[row][col] == 2)
+		{
+			//Game Ended
+			//Load Next Level
+			LoadMap();
+		}
+	}
+	if (player->GetState() == BlockState::Sationary)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			int row = round(player->GetPosition().x);
+			int col = round(player->GetPosition().z);
+			int target = 7;
+			for (int z = col;z <8;z++)
+				if (map[row][z] == 1) {
+					target = z - 1;
+					break;
+				}
+			player->MoveTo(glm::vec3(row, 1, target), 0.25f);
+			
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			int row = round(player->GetPosition().x);
+			int col = round(player->GetPosition().z);
+			int target = 0;
+			for (int z = col;z >= 0;z--)
+				if (map[row][z] == 1) {
+					target = z + 1;
+					break;
+				}
+			player->MoveTo(glm::vec3(row, 1, target), 0.25f);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		{
+			int row = round(player->GetPosition().x);
+			int col = round(player->GetPosition().z);
+			int target = 7;
+			int movablePos = -1;
+			for (int x = row;x < 8;x++)
+				if (map[x][col] == 1) {
+					target = x - 1;
+					break;
+				}
+			player->MoveTo(glm::vec3(target, 1, col), 0.25f);
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		{
+			int row = round(player->GetPosition().x);
+			int col = round(player->GetPosition().z);
+			int target = 0;
+			for (int x = row;x >= 0;x--)
+				if (map[x][col] == 1) {
+					target = x + 1;
+					break;
+				}
+			player->MoveTo(glm::vec3(target, 1, col), 0.25f);
+		}
+	}
+
+
+
 	player->Update(dt);
 	for (auto& block : mapBlocks)
 	{
