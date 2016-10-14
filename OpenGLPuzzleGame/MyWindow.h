@@ -8,7 +8,7 @@
 #include "GameWindow.h"
 #include "UnlitTextureMaterial.h"
 #include "Mesh.h"
-
+#include "Camera.h"
 class MyWindow :
 	public GameWindow
 {
@@ -20,12 +20,8 @@ public:
 	void Start() override;
 	std::shared_ptr<sf::Texture> loadTexture(std::string imageFileName);
 private:
-	//std::shared_ptr<Geometry> cubeGeometry;
-	//std::shared_ptr<sf::Shader> unlitTextureShader;
 	float elapsedTime = 0;
-	glm::mat4 view_mat;
-	glm::mat4 proj_mat;
-	//std::shared_ptr<UnlitTextureMaterial> material1, material2;
+	Camera cam;
 	std::vector<Mesh> cubes;
 };
 
