@@ -1,6 +1,8 @@
 #pragma once
-#include <SFML\Graphics\Shader.hpp>
+#include <fstream>
 #include <memory>
+
+#include <SFML\Graphics\Shader.hpp>
 #include<gl\glm\glm.hpp>
 #include<gl\glm\gtc\type_ptr.hpp>
 #include<gl\glm\gtx\transform.hpp>
@@ -33,6 +35,7 @@ private:
 		{ 1,0,0,0,0,0,0,0 }
 	};
 	float elapsedTime = 0;
+	int currentLevel = 1;
 	Camera cam;
 	std::vector<Block> mapBlocks;
 	std::shared_ptr<Block> player;
@@ -42,5 +45,6 @@ private:
 	std::shared_ptr<UnlitTextureMaterial> mapMat;
 	std::shared_ptr<UnlitTextureMaterial> targetMat;
 	void LoadMap();
+	void FillMapFromFile(std::string filename);
 };
 

@@ -23,7 +23,7 @@ void MyWindow::Update(sf::Time dt)
 		std::cout << "FPS: " << fps << std::endl;
 		fps = 0;
 	}
-	elapsedTime += dt.asSeconds();
+	elapsedTime += dt.asSeconds() * 2;
 
 	skybox->transform.SetPosition(cam.GetPosition());
 	skybox->transform.SetEulerAngles(glm::vec3(0, elapsedTime, 0));
@@ -41,6 +41,8 @@ void MyWindow::Update(sf::Time dt)
 		{
 			//Game Ended
 			//Load Next Level
+			currentLevel++;
+			FillMapFromFile("Levels\\Level" + std::to_string(currentLevel) + ".txt");
 			LoadMap();
 		}
 	}
@@ -98,8 +100,6 @@ void MyWindow::Update(sf::Time dt)
 		}
 	}
 
-
-
 	player->Update(dt);
 	for (auto& block : mapBlocks)
 	{
@@ -152,6 +152,7 @@ void MyWindow::Start()
 	player = std::make_shared<Block>(cubeGeometry, playerMat);
 
 	//Map Loading
+	FillMapFromFile("Levels\\Level" + std::to_string(currentLevel) + ".txt");
 	LoadMap();
 
 
@@ -185,7 +186,21 @@ std::shared_ptr<sf::Texture> MyWindow::loadTexture(std::string imageFileName)
 	texture->generateMipmap();
 	return texture;
 }
+void  MyWindow::FillMapFromFile(std::string filename)
+{
+	std::ifstream file(filename);
+	if (file.is_open())
+	{
+		for (int x = 0;x < 8;x++)
+		{
+			for (int y = 0;y < 8;y++)
+			{
+				file >> map[x][y];
+			}
+		}
+	}
 
+}
 void MyWindow::LoadMap()
 {
 	mapBlocks.clear();
