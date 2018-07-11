@@ -1,8 +1,8 @@
 #pragma once
-#include <gl\glew\glew.h>
+#include <glew\glew.h>
 #include <SFML\OpenGL.hpp>
 #include <vector>
-#include <gl\glm\glm.hpp>
+#include <glm\glm.hpp>
 #include <memory>
 struct vertex {
 	glm::vec3 position, normal;
@@ -38,6 +38,6 @@ public:
 	static std::shared_ptr<Geometry> Create_cube();
 	GLuint GetIndicesCount() const { return indices_count; }
 	GLuint GetVAO() const { return vao; }
-	void Bind()const{ glBindVertexArray(vao); }
+	void Bind()const { glBindVertexArray(vao); }
 	//static Geometry Create_sphere(int iterations);
 };

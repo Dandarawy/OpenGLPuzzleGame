@@ -1,6 +1,6 @@
 #include <memory>
 #include <string>
-#include <gl\glew\glew.h>
+#include <glew\glew.h>
 #include <SFML\Graphics.hpp>
 #include <SFML\OpenGL.hpp>
 #include <iostream>

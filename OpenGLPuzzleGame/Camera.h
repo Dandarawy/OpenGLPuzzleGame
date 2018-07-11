@@ -1,6 +1,6 @@
 #pragma once
-#include <gl\glm\glm.hpp>
-#include<gl\glm\gtx\transform.hpp>
+#include <glm\glm.hpp>
+#include<glm\gtx\transform.hpp>
 enum class PROJECTION_TYPE
 {
 	ORTHOGRAPHIC,
@@ -26,9 +26,9 @@ protected:
 	bool is_proj_dirty;
 	PROJECTION_TYPE projection_type;
 public:
-	Camera(glm::vec3 position, glm::vec3 target, float _aspect_ratio 
+	Camera(glm::vec3 position, glm::vec3 target, float _aspect_ratio
 		, PROJECTION_TYPE _projection_type = PROJECTION_TYPE::PERSPECTIVE
-		);
+	);
 	~Camera();
 	void SetPosition(glm::vec3 _position);
 	void SetTarget(glm::vec3 _position);

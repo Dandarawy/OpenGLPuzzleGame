@@ -1,5 +1,5 @@
 #include "GameWindow.h"
-#include<gl\glew\glew.h>
+#include<glew\glew.h>
 #include<iostream>
 
 

@@ -3,9 +3,9 @@
 #include <memory>
 
 #include <SFML\Graphics\Shader.hpp>
-#include<gl\glm\glm.hpp>
-#include<gl\glm\gtc\type_ptr.hpp>
-#include<gl\glm\gtx\transform.hpp>
+#include<glm\glm.hpp>
+#include<glm\gtc\type_ptr.hpp>
+#include<glm\gtx\transform.hpp>
 
 #include "GameWindow.h"
 #include "UnlitTextureMaterial.h"

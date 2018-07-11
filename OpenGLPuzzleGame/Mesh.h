@@ -3,9 +3,9 @@
 #include "Geometry.h"
 #include "Transform.h"
 #include <memory>
-#include<gl\glm\glm.hpp>
-#include<gl\glm\gtc\type_ptr.hpp>
-#include<gl\glm\gtx\transform.hpp>
+#include<glm\glm.hpp>
+#include<glm\gtc\type_ptr.hpp>
+#include<glm\gtx\transform.hpp>
 class Mesh
 {
 	std::shared_ptr<Material> material;
